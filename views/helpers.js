@@ -1,7 +1,15 @@
 module.exports = {
-	getError(errors, prop) {
+	getError(errors, props) {
+		console.log(
+			"error object will be================================: ",
+			errors
+		);
+		console.log(
+			"props test:+++++++++++++++++++++++++++++++++++++++++++++++ ",
+			props
+		);
 		try {
-			return errors.mapped()[prop].msg;
+			return errors.mapped()[props].msg;
 		} catch (e) {
 			return " ";
 		}

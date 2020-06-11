@@ -39,7 +39,10 @@ router.post(
 	],
 	handleErrors(signupTemplate),
 	async (req, res) => {
-		const { email, password } = req.body;
+		const { email, password, passwordConfirmation } = req.body;
+
+		console.log("password: ", password);
+		console.log("password: ", passwordConfirmation);
 
 		const getOne = usersRepo.randomId();
 

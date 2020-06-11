@@ -34,6 +34,7 @@ module.exports = {
 		.trim()
 		.isLength({ min: 4, max: 20 })
 		.withMessage("Must be length between 20 and 4"),
+	// check password confirmation
 	requirePasswordConfirmation: check("passwordConfirmation")
 		.trim()
 		.isLength({ min: 4, max: 20 })
@@ -45,6 +46,7 @@ module.exports = {
 				);
 			}
 		}),
+
 	requireEmailExists: check("emailSignin")
 		.isEmail()
 		.trim()
