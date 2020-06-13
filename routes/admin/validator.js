@@ -48,9 +48,9 @@ module.exports = {
 		}),
 
 	requireEmailExists: check("emailSignin")
-		.isEmail()
 		.trim()
 		.normalizeEmail()
+		.isEmail()
 		.withMessage("Must provide a valid Email, Oliver")
 		.custom(async (emailSignin) => {
 			//get user by GetByOne()
@@ -68,13 +68,14 @@ module.exports = {
 		.trim()
 		.custom(async (passwordSignin, { req }) => {
 			//grab user
+
 			const user = await usersRepo.getOneBy({
-				email: req.body.email,
+				email: req.body.emailSignin,
 			});
 
 			if (!user) {
 				throw new Error(
-					"Invalid Password Oliver, requireValidPasswordFrorUser"
+					"requireValidPasswordForUser trigger/validator.js, user is not exist"
 				);
 			}
 			// grab comparePassword in user.js

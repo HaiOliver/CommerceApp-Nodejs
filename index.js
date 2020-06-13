@@ -16,8 +16,14 @@ app.use(express.static("public"));
 //connect routers in auth.js
 const authRouter = require("./routes/admin/auth");
 
-//connect routers in products.js
-const productsRouter = require("./routes/admin/products");
+//connect routers in products.js => admin
+const adminProductsRouter = require("./routes/admin/products");
+
+//connect router in product.js => load whole products
+const productsRouter = require("./routes/products")
+
+//connect router in carts.js => create cart repositories
+const cartsRouter = require("./routes/carts")
 
 // create Middle ware body parser library
 app.use(bodyParse.urlencoded({ extended: true }));
@@ -28,9 +34,14 @@ app.use(
 	})
 );
 
-//hookup auth.js into index.js. connect auth folder and authRouter
+//hookup auth.js into main index.js. connect auth folder and authRouter
 app.use(authRouter);
 
+//hook up product.js to load whole products
+app.use(adminProductsRouter);
+
+//hook up cart.js to => carts repositories
+app.use(cartsRouter);
 //hookup to product router
 app.use(productsRouter);
 

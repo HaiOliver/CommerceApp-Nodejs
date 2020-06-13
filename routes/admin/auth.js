@@ -29,6 +29,7 @@ router.get("/signup", (req, res) => {
 
 router.post(
 	"/signup",
+	// handleErrors(signupTemplate),
 	[
 		//validate Email
 		requireEmail,
@@ -38,11 +39,9 @@ router.post(
 		requirePasswordConfirmation,
 	],
 	handleErrors(signupTemplate),
+
 	async (req, res) => {
 		const { email, password, passwordConfirmation } = req.body;
-
-		console.log("password: ", password);
-		console.log("password: ", passwordConfirmation);
 
 		const getOne = usersRepo.randomId();
 
@@ -82,6 +81,10 @@ router.post(
 		const { emailSignin, passwordSignin } = req.body;
 
 		//assign id bu user.id
+
+		const user = await usersRepo.getOneBy({
+			email: emailSignin,
+		});
 
 		req.session.userId = user.id;
 
