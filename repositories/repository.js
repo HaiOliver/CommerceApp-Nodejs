@@ -1,4 +1,6 @@
+// create file in node
 const fs = require("fs");
+// 
 const crypto = require("crypto");
 
 module.exports = class Repository {
@@ -15,7 +17,7 @@ module.exports = class Repository {
 			fs.writeFileSync(this.filename, "[]");
 		}
 	}
-
+	// =============================== get all member ====================================
 	async getAll() {
 		// open file
 		return JSON.parse(
@@ -25,6 +27,7 @@ module.exports = class Repository {
 		);
 	}
 
+	// =============================== delete all -> create new one ====================================
 	async writeAll(records) {
 		await fs.promises.writeFile(
 			this.filename,
@@ -32,7 +35,7 @@ module.exports = class Repository {
 		);
 	}
 
-	//create new record
+	// =============================== add new record ====================================
 	async create(attrs) {
 		attrs.id = this.randomId();
 		const records = await this.getAll();
@@ -42,25 +45,26 @@ module.exports = class Repository {
 		return attrs;
 	}
 
+	// =============================== create random id ====================================
 	randomId() {
 		return crypto.randomBytes(4).toString("hex");
 	}
 
-	// Get id
+	// =============================== retrieve id ====================================
 	async getOne(id) {
 		const records = await this.getAll();
 
 		return records.find((record) => record.id === id);
 	}
 
-	//delete id
+	// =============================== delete id ====================================
 	async delete(id) {
 		const records = await this.getAll();
 		const filterRecord = records.filter((record) => record.id !== id);
 		await this.writeAll(filterRecord);
 	}
 
-	//update
+	// =============================== update one ====================================
 	async update(id, attrs) {
 		const records = await this.getAll();
 		const record = records.find((record) => record.id === id);
@@ -74,7 +78,7 @@ module.exports = class Repository {
 		await this.writeAll(records);
 	}
 
-	//getOneBy
+	// =============================== retrieve one by ====================================
 	async getOneBy(filters) {
 		const records = await this.getAll();
 
